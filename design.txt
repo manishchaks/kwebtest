@@ -1,0 +1,62 @@
+KWebTest - Design
+
+
+KWeb Test Consists of two modules
+
+1) Interactor module
+2) Test Module
+
+====================================================================
+1) The interactor module:
+
+Interacts with the user. This module has the following classes
+
+1.1) BrowserApp - > The main application, also wraps and represents the browser in memory
+
+1.2) BrowserView -> GUI Representation of the browser
+
+1.3) JsRunner -> Used to do various debugging/running tasks on a live web page. 
+
+1.4) LogWindow -> The log window :)
+
+====================================================================
+2) The Test module
+
+2.1) Test -> Represents a test in memory
+
+2.2) TestRunner-> "Runs" a test
+2.3) TestRecorder-> "Records" a test
+
+2.4)TestRunnerWidget-> Widget which provides GUI wrapper for TestRunner
+
+2.5) TestRecorderWidget->Widget which provides GUI wrapper for TestRecorder
+
+2.6) TestReader-> Reads the XML file from disk and populates a Test tree
+
+2.7) TestWriter-> Writes the XML file to disk from a populated Test tree 
+
+
+====================================================================
+
+Run scenarios:
+	1) Recording a test for the first time:
+		-"Record is clicked on the TestRecordeWidget
+		-A new instance of TestRecorder is created
+		-TestRecorder creates a new instance of Test
+		-TestRecorder emits suitable signal whenever an event occurs (click event and form submit event)
+		-TestRecorder has slots which catch these signals and creates corresponding objects in Test hierarchy
+		- After testing has finished, give Test to TestWriter and get it done with
+	2) Playing back a recorded text
+		-Read the file name from the user: use the open dialog
+		-Open the file with TestReader
+		-TestReader gives us the Test*
+		-Pass the test* to TestRunnerWidget
+		-TestRunnerWidget spawns a new instance of TestRunner to actually run the test
+		-TestRunner has signals, which the widget must catch and display it accordingly
+	
+====================================================================
+Developer Info:
+	- Manish Chakravarty
+	- Associate Software Developer
+	- mchakravarty@spikesource.com
+	- Spike Source IDC (Bengaluru)

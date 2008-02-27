@@ -1,0 +1,21 @@
+KWebTest - Compile-HowTo
+
+Introduction:
+	-This file explains how to get KWebTest up and running in your machine
+
+Prerequisites
+	- You must have KDE development packages installed on your system
+	- On Fedora/RHEL these are called "KDE Development"
+	- On ubuntu/debian you need "kdesdk" and "qt-devel" in addition to "kde" packages
+
+Compilation procedure
+	-cd into the directory
+	-"qmake"
+	-"make"
+	-./KWebTest
+
+Developer Info:
+	- Manish Chakravarty
+	- Associate Software Developer
+	- mchakravarty@spikesource.com
+	- Spike Source IDC (Bengaluru)

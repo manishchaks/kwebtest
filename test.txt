@@ -1,0 +1,10 @@
+==BEGIN_FORM_DATA==
+admin@loginForm:user-name
+admin@loginForm:user-password
+Login|NULL
+==END_FORM_DATA==
+Administration Console|NULL
+Manage System Users|NULL
+==BEGIN_FORM_DATA==
+Show All|NULL
+==END_FORM_DATA
