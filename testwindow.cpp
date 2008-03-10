@@ -3,7 +3,7 @@
 // Description: 
 //
 //
-// Author: Manish Chakravarty <mchakravarty@spikesource.com>, (C) 2007
+// Author: Manish Chakravarty manishchaks@gmail.com, (C) 2007
 //
 // Copyright: See COPYING file that comes with this distribution
 //
@@ -15,45 +15,45 @@
 TestWindow::TestWindow(QWidget *parent, JsRunner * runner)
     :QWidget (parent)
 {
-    m_runner=runner;
-    int runCount=0;
-    currentItem=0;
-    isLoaded=true;
-   //marker =0;
-    m_testEditor = new TestEditor(this);
-    loadButton = new QPushButton(this);
-    saveButton = new QPushButton(this);
-    playButton = new QPushButton (this);
-    playAllButton = new QPushButton(this);
-    deleteSelected = new QPushButton(this);
-    deleteAll = new QPushButton(this);
-    loadButton->setText("Load");
-    saveButton->setText("Save");
-    playButton->setText("Play");
-    playAllButton->setText("Play All");
-    deleteSelected->setText("Delete Selected");
-    deleteAll->setText("Delete All!");
-    layout = new QVBoxLayout(this);
-    layout->add(m_testEditor);
-    buttonLayout = new QGridLayout(this);
-    buttonLayout->addWidget( loadButton, 0, 0);
-    buttonLayout->addWidget (saveButton,0,1);
-    buttonLayout->addWidget(playButton,1 ,0);
-    buttonLayout->addWidget(playAllButton,1,1);
-    buttonLayout->addWidget(deleteSelected,2,0);
-    buttonLayout->addWidget(deleteAll,2,1);
-    layout->addLayout(buttonLayout);
-    connect(loadButton,SIGNAL(clicked()),this, SLOT(openLoadDialog()));
-    connect(saveButton, SIGNAL(clicked()), this, SLOT(openSaveDialog()));
-    connect(this, SIGNAL(load(const QString &)), m_testEditor, SLOT(readFile(const QString &)));
-    connect(this, SIGNAL(save(const QString &)), m_testEditor, SLOT(writeFile(const QString &)));
-    connect(playButton,SIGNAL(clicked()),this,SLOT(run()));
-    connect(playAllButton,SIGNAL(clicked()),this,SLOT(runAll()));
-  //connect(m_view,SIGNAL(loaded(BrowserView *, const KURL &url)), this, SLOT(pageLoaded()));
-    connect(deleteSelected,SIGNAL(clicked()),this,SLOT(removeSelected()));
-    connect(deleteAll,SIGNAL(clicked()),this,SLOT(removeAll()));
-    isTestRunning = false;
-    playAllClicked = false;
+	m_runner=runner;
+	int runCount=0;
+	currentItem=0;
+	isLoaded=true;
+	//marker =0;
+	m_testEditor = new TestEditor(this);
+	loadButton = new QPushButton(this);
+	saveButton = new QPushButton(this);
+	playButton = new QPushButton (this);
+	playAllButton = new QPushButton(this);
+	deleteSelected = new QPushButton(this);
+	deleteAll = new QPushButton(this);
+	loadButton->setText("Load");
+	saveButton->setText("Save");
+	playButton->setText("Play");
+	playAllButton->setText("Play All");
+	deleteSelected->setText("Delete Selected");
+	deleteAll->setText("Delete All!");
+	layout = new QVBoxLayout(this);
+	layout->add(m_testEditor);
+	buttonLayout = new QGridLayout(this);
+	buttonLayout->addWidget( loadButton, 0, 0);
+	buttonLayout->addWidget (saveButton,0,1);
+	buttonLayout->addWidget(playButton,1 ,0);
+	buttonLayout->addWidget(playAllButton,1,1);
+	buttonLayout->addWidget(deleteSelected,2,0);
+	buttonLayout->addWidget(deleteAll,2,1);
+	layout->addLayout(buttonLayout);
+	connect(loadButton,SIGNAL(clicked()),this, SLOT(openLoadDialog()));
+	connect(saveButton, SIGNAL(clicked()), this, SLOT(openSaveDialog()));
+	connect(this, SIGNAL(load(const QString &)), m_testEditor, SLOT(readFile(const QString &)));
+	connect(this, SIGNAL(save(const QString &)), m_testEditor, SLOT(writeFile(const QString &)));
+	connect(playButton,SIGNAL(clicked()),this,SLOT(run()));
+	connect(playAllButton,SIGNAL(clicked()),this,SLOT(runAll()));
+	//connect(m_view,SIGNAL(loaded(BrowserView *, const KURL &url)), this, SLOT(pageLoaded()));
+	connect(deleteSelected,SIGNAL(clicked()),this,SLOT(removeSelected()));
+	connect(deleteAll,SIGNAL(clicked()),this,SLOT(removeAll()));
+	isTestRunning = false;
+	playAllClicked = false;
 }
 
 TestWindow::~TestWindow()
@@ -97,36 +97,36 @@ void TestWindow::removeSelected()
 
 void TestWindow::openLoadDialog()
 {
-    KFileDialog * fileDialog = new KFileDialog(".",QString::null, this,"File Open Dialog", true);
-    fileDialog->setOperationMode(KFileDialog::Opening);
-    connect(fileDialog, SIGNAL(fileSelected(const QString &)), this , SLOT(openFileSelected(const QString &)));
-    fileDialog->show();
+	KFileDialog * fileDialog = new KFileDialog(".",QString::null, this,"File Open Dialog", true);
+	fileDialog->setOperationMode(KFileDialog::Opening);
+	connect(fileDialog, SIGNAL(fileSelected(const QString &)), this , SLOT(openFileSelected(const QString &)));
+	fileDialog->show();
   
 }
   
 void TestWindow::openSaveDialog()
 {
-    KFileDialog * fileDialog = new KFileDialog(".",QString::null, this,"File Save Dialog", true);
-    fileDialog->setOperationMode(KFileDialog::Saving);
-    connect(fileDialog, SIGNAL(fileSelected(const QString &)), this , SLOT(saveFileSelected(const QString &)));
-    fileDialog->show();
+	KFileDialog * fileDialog = new KFileDialog(".",QString::null, this,"File Save Dialog", true);
+	fileDialog->setOperationMode(KFileDialog::Saving);
+	connect(fileDialog, SIGNAL(fileSelected(const QString &)), this , SLOT(saveFileSelected(const QString &)));
+	fileDialog->show();
 }
 
 void TestWindow::openFileSelected(const QString & fileName)
 {
-    qWarning("Open File selected");
-    QString newString = fileName;
-    newString.remove("file://");
-    emit load(newString);
+	qWarning("Open File selected");
+	QString newString = fileName;
+	newString.remove("file://");
+	emit load(newString);
 }
 
 
 void TestWindow::saveFileSelected(const QString & fileName)
 {
-    qWarning("Save File selected");
-    QString newString = fileName;
-    newString.remove("file://");
-    emit save(newString);
+	qWarning("Save File selected");
+	QString newString = fileName;
+	newString.remove("file://");
+	emit save(newString);
 }
 
 
@@ -156,34 +156,28 @@ void TestWindow::putFormValue( QListViewItem *listViewItem)
         for(unsigned long j =0; j< formColln.length(); j ++)
         {
             DOM::Node formNode = formColln.item(j);
-            
             DOM::HTMLInputElement element(formNode);
             DOM::DOMString formDomName = formNode.nodeName();
             QString formString = formDomName.string();
-            
             DOM::Element newEle(formNode);
             if( newEle.getAttribute("type").string()!="hidden")
             {
                 QString cName=element.name().string();
                 QString cValue = element.value().string();
                 QString cType = newEle.getAttribute("type").string();
-                if(cType == "text" || cType== "password"|| cType=="file")
+                //if(cType == "text" || cType== "password"|| cType=="file")
                 {
                     //we must make sure that we are setting the values of the right elements, before we proceed
                     if(cName==listViewItem->text(2))
                         //we have a match!!
                     {
-                        
                         element.setValue( listViewItem->text(3));
                         m_runner->part()->executeScript( element.getAttribute("onchange").string());
                     }
                 }
-               
             }
         }
-    
     }
-  
 }
 void TestWindow::clickButton( QListViewItem *listViewItem)
 {
@@ -198,21 +192,17 @@ void TestWindow::clickButton( QListViewItem *listViewItem)
     DOM::HTMLCollection  collection = doc->forms();
     for(unsigned long i = 0; i< collection.length(); i ++)
     {
-      
         DOM::Node node = collection.item( i);
         DOM::DOMString domStringName = node.nodeName();
         QString stringName = domStringName.string();
-        
         DOM::HTMLFormElement * htmlFormEle = (DOM::HTMLFormElement*)&(node);
         DOM::HTMLCollection formColln = htmlFormEle->elements();
         for(unsigned long j =0; j< formColln.length(); j ++)
         {
             DOM::Node formNode = formColln.item(j);
-            
             DOM::HTMLInputElement element(formNode);
             DOM::DOMString formDomName = formNode.nodeName();
             QString formString = formDomName.string();
-            
             DOM::Element newEle(formNode);
             if( newEle.getAttribute("type").string()!="hidden")
             {
@@ -229,12 +219,9 @@ void TestWindow::clickButton( QListViewItem *listViewItem)
                         element.click();
                     }
                 }
-               
             }
         }
-    
     }
-  
 }
 
 void TestWindow::runItem( QListViewItem * item, bool step)
@@ -323,8 +310,6 @@ void TestWindow::pageLoaded()
     //playButton->setEnabled( true);
     playAllButton->setEnabled( true);
     qWarning( "Run count %d", runCount);
-
-
     if(playAllClicked==true)
     {
         runItem(currentItem, true);
@@ -332,7 +317,6 @@ void TestWindow::pageLoaded()
             playAllClicked=false;
         currentItem=currentItem->nextSibling();
     }
-        
 }
 
 
@@ -345,13 +329,13 @@ TestEditor::TestEditor(QWidget *parent)
     :QListView(parent)
 
 {
-    isForm=false;
-    addColumn("Serial No");
-    addColumn( "Type");
-    addColumn ("Value");
-    addColumn ("Attribute");
-    addColumn ("Assertion");
-    addColumn("Assertion Results");
+	isForm=false;
+	addColumn("Serial No");
+	addColumn( "Type");
+	addColumn ("Value");
+	addColumn ("Attribute");
+	addColumn ("Assertion");
+	addColumn("Assertion Results");
 }
 
 TestEditor::~TestEditor()
@@ -361,38 +345,38 @@ TestEditor::~TestEditor()
 
 void TestEditor::readFile(const QString & fileName)
 {
-    qWarning("Read File: %s", fileName.ascii());
-    isForm=false;
-    QFile file(fileName);
-    if(!file.open(IO_ReadOnly))
-    {
-        qWarning("File open failed");
-        return;
-    }
-    clear();
-    m_fileString = QString(file.readAll());
-    m_StringList = QStringList::split("\n",m_fileString);
-    parse();
-    file.close();
+	qWarning("Read File: %s", fileName.ascii());
+	isForm=false;
+	QFile file(fileName);
+	if(!file.open(IO_ReadOnly))
+	{
+	qWarning("File open failed");
+	return;
+	}
+	clear();
+	m_fileString = QString(file.readAll());
+	m_StringList = QStringList::split("\n",m_fileString);
+	parse();
+	file.close();
 }
 
 void TestEditor::writeFile(const QString & fileName)
 {
-    qWarning("Write file: %s", fileName.ascii());
-    isForm=false;
-    m_fileString=QString::null;
-    QFile file(fileName);
-    file.open(IO_WriteOnly);
-    QTextStream ts (&file);
-    QListViewItem * myChild= this->firstChild();
-    while(myChild)
-    {
-        m_fileString.append(writeStringFromNode(myChild));
-        myChild = myChild->nextSibling();
-    };
-    endFile();
-    ts << m_fileString;
-    file.close();
+	qWarning("Write file: %s", fileName.ascii());
+	isForm=false;
+	m_fileString=QString::null;
+	QFile file(fileName);
+	file.open(IO_WriteOnly);
+	QTextStream ts (&file);
+	QListViewItem * myChild= this->firstChild();
+	while(myChild)
+	{
+	m_fileString.append(writeStringFromNode(myChild));
+	myChild = myChild->nextSibling();
+	};
+	endFile();
+	ts << m_fileString;
+	file.close();
   
 };
 

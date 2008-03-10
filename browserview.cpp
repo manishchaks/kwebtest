@@ -7,7 +7,7 @@
 * @param name The name of the widget
 * @return none
 */
-		BrowserView::BrowserView(QWidget *parent, const char *name)
+BrowserView::BrowserView(QWidget *parent, const char *name)
 	: QWidget(parent, name)
 {
 

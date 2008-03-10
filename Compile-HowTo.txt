@@ -16,6 +16,5 @@ Compilation procedure
 
 Developer Info:
 	- Manish Chakravarty
-	- Associate Software Developer
-	- mchakravarty@spikesource.com
-	- Spike Source IDC (Bengaluru)
+    manishchaks@gmail.com
+    monzie on #kde-devel
