@@ -24,24 +24,19 @@
 
 #include "kwebtestincludes.h"
 #include <qlistview.h>
-/**
- * @short Application Main Window
- * @author Manish Chakravarty <manish@freedom>
- * @version 0.5
- */
-		class kwebtest : public KMainWindow
-{
-	Q_OBJECT
-	public:
-/**
-	 * Default Constructor
- */
-		kwebtest();
 
 /**
-		 * Default Destructor
- */
-		virtual ~kwebtest();
+\ingroup MainModule
+\class kwebtest
+\brief The Main window for KWebTest
+*/
+class kwebtest : public KMainWindow
+{
+Q_OBJECT
+public:
+	kwebtest();
+
+	virtual ~kwebtest();
 };
 
 #endif // _KWEBTEST_H_

@@ -3,82 +3,81 @@
 JsRunner::JsRunner( )
 
 {
-  layout=0;
-  m_part=0;
-  m_TestEditor=0;
-  recMode=true;
-  layout = new QVBoxLayout(this);
-  linkName = new QLabel(this);
-  linkNameLineEdit = new QLineEdit(this);
-  formPushButton = new QPushButton(this);
-  linkPushButton = new QPushButton(this);
-  helpLabel = new QLabel(this);
-  helpLabel ->setText("Welcome To KWebTest!\n Use the buttons above to record\n clicks or form submissions");
-  linkName->setText( "Enter Link Name above");
-  formPushButton->setText( "Record Form");
-  //formPushButton->setToggleButton( true);
-  linkPushButton->setText( "Record Click");
-  //linkPushButton->setToggleButton(true);
-  formTree = new QListView(this);
-  assertionLabel = new QLabel(this);
-  assertionLineEdit = new QLineEdit(this);
-  assertionLabel->setText("Enter Assertion Text Below");
-  layout->addWidget( formPushButton);
-  layout->addWidget( linkPushButton);
-  layout->addWidget( helpLabel);
-  layout->addWidget( linkNameLineEdit);
-  layout->addWidget (formTree);
-  layout->addWidget( linkName);
-  layout->addWidget(assertionLabel);
-  layout->addWidget(assertionLineEdit);
-  
-  linkNameLineEdit->hide();
-  assertionLabel->hide();
-  assertionLineEdit->hide();
-
-  connect(formPushButton,SIGNAL(clicked()),this, SLOT(executeForms()));
-  connect(linkPushButton,SIGNAL(clicked()),this, SLOT(executeLinks()));
-  formTree->addColumn("Form Name");	
-  formTree->addColumn("Form Type");
-  formTree->addColumn("Attribute");
-  formTree->addColumn("Value:");
-  
-  formTree->setRootIsDecorated(true);
-  formTree->hide();
-
-  console = new QWidget(this);
-  consoleLayout = new QVBoxLayout(console);
-  console->hide();
-  layout->addWidget(console);
-  this->setCaption("JavaScript Debugger - KWebTest");
-  initialWidgetState();
+	layout=0;
+	m_part=0;
+	m_TestEditor=0;
+	recMode=true;
+	layout = new QVBoxLayout(this);
+	linkName = new QLabel(this);
+	linkNameLineEdit = new QLineEdit(this);
+	formPushButton = new QPushButton(this);
+	linkPushButton = new QPushButton(this);
+	helpLabel = new QLabel(this);
+	helpLabel ->setText("Welcome To KWebTest!\n Use the buttons above to record\n clicks or form submissions");
+	linkName->setText( "Enter Link Name above");
+	formPushButton->setText( "Record Form");
+	//formPushButton->setToggleButton( true);
+	linkPushButton->setText( "Record Click");
+	//linkPushButton->setToggleButton(true);
+	formTree = new QListView(this);
+	assertionLabel = new QLabel(this);
+	assertionLineEdit = new QLineEdit(this);
+	assertionLabel->setText("Enter Assertion Text Below");
+	layout->addWidget( formPushButton);
+	layout->addWidget( linkPushButton);
+	layout->addWidget( helpLabel);
+	layout->addWidget( linkNameLineEdit);
+	layout->addWidget (formTree);
+	layout->addWidget( linkName);
+	layout->addWidget(assertionLabel);
+	layout->addWidget(assertionLineEdit);
+	
+	linkNameLineEdit->hide();
+	assertionLabel->hide();
+	assertionLineEdit->hide();
+	
+	connect(formPushButton,SIGNAL(clicked()),this, SLOT(executeForms()));
+	connect(linkPushButton,SIGNAL(clicked()),this, SLOT(executeLinks()));
+	formTree->addColumn("Form Name");	
+	formTree->addColumn("Form Type");
+	formTree->addColumn("Attribute");
+	formTree->addColumn("Value:");
+	
+	formTree->setRootIsDecorated(true);
+	formTree->hide();
+	
+	console = new QWidget(this);
+	consoleLayout = new QVBoxLayout(console);
+	console->hide();
+	layout->addWidget(console);
+	this->setCaption("JavaScript Debugger - KWebTest");
+	initialWidgetState();
 
 }
 
 void JsRunner::initialWidgetState()
 {
-  
-  console->hide();
-  linkName->hide();
-  formTree->hide();
-  helpLabel->show();
-  assertionLabel->hide();
-  assertionLineEdit->hide();
+	console->hide();
+	linkName->hide();
+	formTree->hide();
+	helpLabel->show();
+	assertionLabel->hide();
+	assertionLineEdit->hide();
 }
 
 JsRunner::~ JsRunner()
 {
-  delete layout;
-  delete linkName;
-  delete linkNameLineEdit;
-  delete formPushButton;
-  delete linkPushButton;
-  delete formTree;
+	delete layout;
+	delete linkName;
+	delete linkNameLineEdit;
+	delete formPushButton;
+	delete linkPushButton;
+	delete formTree;
 }
 
 bool JsRunner::isRecording() const
 {
-    return recMode;
+	return recMode;
 }
 
 void JsRunner::setIsRecording(bool val)
@@ -97,24 +96,22 @@ KHTMLPart * JsRunner::part()
 }
 void JsRunner::executeForms()
 {
-    
-  initialWidgetState();
-  linkName->hide();
-  linkNameLineEdit->hide();
-  helpLabel->hide();
-  assertionLabel->show();
-  assertionLineEdit->show();
-  assertionLineEdit->setText("NULL");
-  //formPushButton->setOn( true);
-  //linkPushButton->setOn(false);
-  delete consoleLayout;
-  consoleLayout = new QVBoxLayout(console);
-  
-  formTree->show();
-  formTree->clear();
+	initialWidgetState();
+	linkName->hide();
+	linkNameLineEdit->hide();
+	helpLabel->hide();
+	assertionLabel->show();
+	assertionLineEdit->show();
+	assertionLineEdit->setText("NULL");
+	//formPushButton->setOn( true);
+	//linkPushButton->setOn(false);
+	delete consoleLayout;
+	consoleLayout = new QVBoxLayout(console);
+	
+	formTree->show();
+	formTree->clear();
   if(!m_part)
   {
-    //qWarning("invalid part");
     initialWidgetState();
     return;
   }
@@ -127,7 +124,7 @@ void JsRunner::executeForms()
     DOM::Node node = collection.item( i);
     DOM::DOMString domStringName = node.nodeName();
     QString stringName = domStringName.string();
-    qWarning("%d : Form Name: %s", (int)(i), stringName.ascii());
+    //qWarning("%d : Form Name: %s", (int)(i), stringName.ascii());
     DOM::HTMLFormElement * htmlFormEle = (DOM::HTMLFormElement*)&(node);
     QListViewItem * formNameItem = new QListViewItem(formTree);
     formNameItem->setText(0,htmlFormEle->name().string());	
@@ -141,9 +138,9 @@ void JsRunner::executeForms()
       DOM::HTMLInputElement element(formNode);
       DOM::DOMString formDomName = formNode.nodeName();
       QString formString = formDomName.string();
-      qWarning("Form Element name: %s", element.name().string().ascii());
-      qWarning("Form Value name: %s", element.value().string().ascii());
-      qWarning("Form Type: %s", element.type().string().ascii());
+      //qWarning("Form Element name: %s", element.name().string().ascii());
+      //qWarning("Form Value name: %s", element.value().string().ascii());
+      //qWarning("Form Type: %s", element.type().string().ascii());
       DOM::Element newEle(formNode);
       if( newEle.getAttribute("type").string()!="hidden")
       {
@@ -166,24 +163,19 @@ void JsRunner::executeForms()
         typeItem->setText(2,"Type");
         typeItem->setText(3,newEle.getAttribute("type").string());
         QString cType = newEle.getAttribute("type").string();
-
-        ////////////////////FORM RECORDER CODE//////////////////////////////////////////
-        if(cType=="text" || cType=="password")
-        {
-        
-        }
-
-        ////////////////////////////////END FORM RECORDER CODE///////////////////////////
-        
         if(cType=="submit")
         {
-          
           DOM::HTMLInputElement inputEle(newEle);
           MagicButton* button = new MagicButton(console,cValue,inputEle,m_part,this);
           button->setText(cValue);
           consoleLayout->add( button);
         }
-        else if(cType == "text" || cType== "password" || cType=="file")
+        else if (cType =="radio")
+        {
+          QRadioButton * radioButton = new QRadioButton(cName,console);
+          consoleLayout->add(radioButton);
+        }
+        else 
         {
             TestEditor * editor = m_TestEditor;
             QListViewItem * item = new QListViewItem(editor);
@@ -199,17 +191,11 @@ void JsRunner::executeForms()
             item->setText(3,element.value().string());
             item->setText(4, "NULL");
             QLabel * label = new QLabel(cName,console,cName.ascii());
-          MagicLineEdit * lineEdit = new MagicLineEdit(console,DOM::HTMLInputElement(newEle),m_part,this,item);
-          consoleLayout->add(label);
-          consoleLayout->add(lineEdit);
-          item->setText(1, "FORM");
+	    MagicLineEdit * lineEdit = new MagicLineEdit(console,DOM::HTMLInputElement(newEle),m_part,this,item);
+	    consoleLayout->add(label);
+	    consoleLayout->add(lineEdit);
+	    item->setText(1, "FORM");
         }
-        else if (cType =="radio")
-        {
-          QRadioButton * radioButton = new QRadioButton(cName,console);
-          consoleLayout->add(radioButton);
-        }
-        
       }
     }
     formTree->triggerUpdate();
@@ -222,42 +208,42 @@ void JsRunner::executeForms()
 
 void JsRunner::executeLinks()
 {
-  initialWidgetState();
-  linkNameLineEdit->show();
-  linkName->show();
-  helpLabel->hide();
-  assertionLabel->show();
-  assertionLineEdit->show();
-  //assertionLineEdit->setText("NULL");
-  //linkPushButton->setOn( true);
-  //formPushButton->setOn(false);
-  console->hide();
-  formTree->hide();
-  repeat = true;
-  if(!m_part)
-  {
-    //qWarning("invalid part");
-    return;
-  }
-  QString * text = new QString();
-
-  //////////LINK RECORDER CODE///////////////////////////
-  if(linkNameLineEdit->text()!="" && recMode)
-  {
-      
-      TestEditor * editor = m_TestEditor;
-      QListViewItem * item = new QListViewItem(editor);
-      QString numberText;
-      int count = editor->childCount();
-      if(count < 10)
-          numberText.append("0");
-      if(count<100)
-          numberText.append("0");
-      numberText.append(QString::number(editor->childCount()));
-      item->setText(0, numberText );
-      item->setText(1, "URL");
-      item->setText(2,linkNameLineEdit->text());
-      item->setText(4,assertionLineEdit->text());
+	initialWidgetState();
+	linkNameLineEdit->show();
+	linkName->show();
+	helpLabel->hide();
+	assertionLabel->show();
+	assertionLineEdit->show();
+	//assertionLineEdit->setText("NULL");
+	//linkPushButton->setOn( true);
+	//formPushButton->setOn(false);
+	console->hide();
+	formTree->hide();
+	repeat = true;
+	if(!m_part)
+	{
+	////qWarning("invalid part");
+	return;
+	}
+	QString * text = new QString();
+	
+	//////////LINK RECORDER CODE///////////////////////////
+	if(linkNameLineEdit->text()!="" && recMode)
+	{
+	
+	TestEditor * editor = m_TestEditor;
+	QListViewItem * item = new QListViewItem(editor);
+	QString numberText;
+	int count = editor->childCount();
+	if(count < 10)
+		numberText.append("0");
+	if(count<100)
+		numberText.append("0");
+	numberText.append(QString::number(editor->childCount()));
+	item->setText(0, numberText );
+	item->setText(1, "URL");
+	item->setText(2,linkNameLineEdit->text());
+	item->setText(4,assertionLineEdit->text());
 
   }
   /////////////////END LINK RECORDER///////////////////////////////
@@ -280,21 +266,21 @@ void JsRunner::executeLinks()
     exploreDomNode(node, text);
   }
   DOM::HTMLCollection  collectionImg = doc->images();
-  //qWarning("Number of images: %d", (int)collectionImg.length());
+  ////qWarning("Number of images: %d", (int)collectionImg.length());
   for(unsigned long i = 0; i< collectionImg.length(); i ++)
   {
     DOM::Node nodeImg = collection.item( i);
     if(nodeImg.isNull())
     {	
-      //qWarning("Invalid node # %d",(int)i);
+      ////qWarning("Invalid node # %d",(int)i);
       continue;
     }
     DOM::Node actualNode = nodeImg.firstChild();
-    //qWarning("Child Node Name %s", actualNode.nodeName().string().ascii());
+    ////qWarning("Child Node Name %s", actualNode.nodeName().string().ascii());
     if(actualNode.nodeName().string()=="IMG")
     {
       DOM::Element targetElement(actualNode);
-      //qWarning("title: %s", targetElement.getAttribute("title").string().ascii());
+      ////qWarning("title: %s", targetElement.getAttribute("title").string().ascii());
       if(targetElement.getAttribute("title").string()==linkNameLineEdit->text())
       {
         DOM::Element nodeImgEle(nodeImg);
@@ -358,7 +344,7 @@ void JsRunner::executeClick()
 {
     if(!m_part)
     {
-        //qWarning("Invalid part: Aborting");
+        ////qWarning("Invalid part: Aborting");
         return;
     }
   m_part->executeScript( buttonOnClick);
@@ -366,25 +352,25 @@ void JsRunner::executeClick()
 
 void JsRunner::click( QString linkToClick)
 {
-  linkNameLineEdit->setText(linkToClick);
-  executeLinks();  
+	linkNameLineEdit->setText(linkToClick);
+	executeLinks();  
   
 }
 
 void JsRunner::setTestEditor( TestEditor * editor)
 {
-    m_TestEditor=editor;
+	m_TestEditor=editor;
 }
 
 MagicButton::MagicButton(QWidget *parent, QString name, DOM::HTMLInputElement inputEle, KHTMLPart *part, JsRunner * runner)
   :QPushButton(parent)
 {
-  m_part = part;
-  m_inputEle = inputEle;
-  m_parent=parent;
-  m_runner=runner;
-  connect(this,SIGNAL(clicked()),this,SLOT(run()));
-  setText(name);
+	m_part = part;
+	m_inputEle = inputEle;
+	m_parent=parent;
+	m_runner=runner;
+	connect(this,SIGNAL(clicked()),this,SLOT(run()));
+	setText(name);
   
 }
 
@@ -394,42 +380,42 @@ MagicButton::~ MagicButton()
 }
 void MagicButton::run()
 {
-  //qWarning("Clicking on %s", m_inputEle.name().string().ascii());
-    //we must add the the button to the TestEditor
-    TestEditor * editor = m_runner->testEditor();
-    QString value = m_inputEle.value().string();
-    QListViewItem * item = new QListViewItem(editor);
-    QString numberText;
-    int count = editor->childCount();
-    if(count < 10)
-        numberText.append("0");
-    if(count<100)
-        numberText.append("0");
-    numberText.append(QString::number(editor->childCount()));
-    item->setText(0, numberText );
-    item->setText(1, "BUTTON");
-    item->setText(2,"NULL");
-    item->setText(3,value);
-    item->setText(4,m_runner->assertionLineEdit->text());
-    
-    
-  m_inputEle.click(); 
-  m_parent->hide();
+	////qWarning("Clicking on %s", m_inputEle.name().string().ascii());
+	//we must add the the button to the TestEditor
+	TestEditor * editor = m_runner->testEditor();
+	QString value = m_inputEle.value().string();
+	QListViewItem * item = new QListViewItem(editor);
+	QString numberText;
+	int count = editor->childCount();
+	if(count < 10)
+	numberText.append("0");
+	if(count<100)
+	numberText.append("0");
+	numberText.append(QString::number(editor->childCount()));
+	item->setText(0, numberText );
+	item->setText(1, "BUTTON");
+	item->setText(2,"NULL");
+	item->setText(3,value);
+	item->setText(4,m_runner->assertionLineEdit->text());
+	
+	
+	m_inputEle.click(); 
+	m_parent->hide();
 }
 
 MagicLineEdit::MagicLineEdit(QWidget *parent, DOM::HTMLInputElement inputEle, KHTMLPart * part, JsRunner *runner, QListViewItem *item)
   :QLineEdit(parent)
 {
-  m_inputEle=inputEle;
-  m_part=part;
-  m_runner=runner;
-  m_Item=item;
-  connect(this, SIGNAL(textChanged( const QString& )), this, SLOT(change( const QString& )));
-  connect(m_part,SIGNAL(nodeActivated( const DOM::Node& )),this,SLOT(checkForChanges( const DOM::Node& )));
-  setText(inputEle.value().string());
-  QString onChangeJS = inputEle.getAttribute("onchange").string();
-  part->executeScript(onChangeJS);
-  qWarning("JS Code: %s", onChangeJS.ascii());
+	m_inputEle=inputEle;
+	m_part=part;
+	m_runner=runner;
+	m_Item=item;
+	connect(this, SIGNAL(textChanged( const QString& )), this, SLOT(change( const QString& )));
+	connect(m_part,SIGNAL(nodeActivated( const DOM::Node& )),this,SLOT(checkForChanges( const DOM::Node& )));
+	setText(inputEle.value().string());
+	QString onChangeJS = inputEle.getAttribute("onchange").string();
+	part->executeScript(onChangeJS);
+  //qWarning("JS Code: %s", onChangeJS.ascii());
 }
 
 MagicLineEdit::~ MagicLineEdit()
@@ -447,11 +433,11 @@ void MagicLineEdit::change(const QString & text)
   }
   QString onChangeJS = m_inputEle.getAttribute("onchange").string();
   m_part->executeScript(onChangeJS);
-  qWarning("JS Code: %s", onChangeJS.ascii());
+  //qWarning("JS Code: %s", onChangeJS.ascii());
   m_Item->setText(3,text);
 }
 
 void MagicLineEdit::checkForChanges( const DOM::Node & )
 {
-  setText(m_inputEle.value().string());
+ 	setText(m_inputEle.value().string());
 }

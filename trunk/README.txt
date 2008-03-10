@@ -25,6 +25,3 @@ Files:
 
 Developer Info:
 	- Manish Chakravarty
-	- Associate Software Developer
-	- mchakravarty@spikesource.com
-	- Spike Source IDC (Bengaluru)

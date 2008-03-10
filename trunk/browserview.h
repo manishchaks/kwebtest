@@ -5,6 +5,11 @@
 class BrowserDoc;
 class BrowserApp;
 
+/**
+\ingroup MainModule
+\class BrowserApp
+\brief Provides the view for the browser 
+*/
 class BrowserView : public QWidget
 {
 Q_OBJECT
@@ -34,6 +39,7 @@ private slots:
 	void progressChanged(int);
 private:
 	void atUrl(const KURL &url);
+
 
 BrowserApp * m_parentApp;
 };
